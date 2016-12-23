@@ -139,6 +139,23 @@ bool ASGameMode::CanDealDamage(class ASPlayerState* DamageCauser, class ASPlayer
 	return DamageCauser && DamagedPlayer && (DamageCauser->GetTeamNumber() != DamagedPlayer->GetTeamNumber());
 }
 
+bool ASGameMode::CanDealDamageBaseCharacter(class ASBaseCharacter* DamageCauser, class ASBaseCharacter* DamagedPlayer) const
+{
+	if (bAllowFriendlyFireDamage)
+	{
+		return true;
+	}
+
+	/* Allow damage to self */
+	if (DamagedPlayer == DamageCauser)
+	{
+		return true;
+	}
+
+	// Compare Team Numbers
+	return DamageCauser && DamagedPlayer && (DamageCauser->GetForceID() != DamagedPlayer->GetForceID());
+}
+
 
 FString ASGameMode::InitNewPlayer(class APlayerController* NewPlayerController, const FUniqueNetIdRepl& UniqueId, const FString& Options, const FString& Portal)
 {
@@ -148,6 +165,11 @@ FString ASGameMode::InitNewPlayer(class APlayerController* NewPlayerController, 
 	if (NewPlayerState)
 	{
 		NewPlayerState->SetTeamNumber(PlayerTeamNum);
+		ASPlayerController* NewPlayerSController = Cast<ASPlayerController>(NewPlayerController);
+		if (NewPlayerSController)
+		{
+			NewPlayerSController->SetForceID(PlayerTeamNum);
+		}
 	}
 
 	return Result;
@@ -167,7 +189,26 @@ float ASGameMode::ModifyDamage(float Damage, AActor* DamagedActor, struct FDamag
 		// Check for friendly fire
 		if (!CanDealDamage(InstigatorPlayerState, DamagedPlayerState))
 		{
-			ActualDamage = 0.f;
+			APawn * ControlledPawn = EventInstigator->GetControlledPawn();
+			if(ControlledPawn)
+			{
+				ASBaseCharacter* BaseCharacter = Cast<ASBaseCharacter>(ControlledPawn);
+				if(BaseCharacter)
+				{
+					if (!CanDealDamageBaseCharacter(BaseCharacter, DamagedPawn))
+					{
+						ActualDamage = 0.f;
+					}
+				}
+				else
+				{
+					ActualDamage = 0.f;
+				}
+			}
+			else
+			{
+				ActualDamage = 0.f;
+			}
 		}
 	}
 

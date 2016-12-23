@@ -100,6 +100,7 @@ public:
 
 	/* Can the player deal damage according to gamemode rules (eg. friendly-fire disabled) */
 	virtual bool CanDealDamage(class ASPlayerState* DamageCauser, class ASPlayerState* DamagedPlayer) const;
+	virtual bool CanDealDamageBaseCharacter(class ASBaseCharacter* DamageCauser, class ASBaseCharacter* DamagedPlayer) const;
 
 	virtual float ModifyDamage(float Damage, AActor* DamagedActor, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) const;
 

@@ -27,7 +27,6 @@ public:
 	/************************************************************************/
 	/* Health                                                               */
 	/************************************************************************/
-
 	UFUNCTION(BlueprintCallable, Category = "PlayerCondition")
 	float GetMaxHealth() const;
 
@@ -44,6 +43,12 @@ public:
 	virtual void SetSprinting(bool NewSprinting);
 
 	float GetSprintingSpeedModifier() const;
+
+	UFUNCTION(BlueprintCallable, Category = "PlayerCondition")
+	int32 GetForceID() const;
+
+	UFUNCTION(BlueprintCallable, Category = "PlayerCondition")
+	int32 SetForceID(int32 inForceID);
 
 protected:
 
@@ -96,11 +101,20 @@ public:
 	/************************************************************************/
 	/* Damage & Death                                                       */
 	/************************************************************************/
+public:
+	UFUNCTION(BlueprintCallable, Category = "PlayerCondition")
+	float BPF_TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser);
+
+	UFUNCTION(BlueprintCallable, Category = "PlayerCondition")
+	void BPF_DirectDie(struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser);
 
 protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "PlayerCondition", Replicated)
 	float Health;
+
+	UPROPERTY(EditDefaultsOnly, Category = "PlayerCondition", Replicated)
+	int32 ForceID = 0;
 
 	/* Take damage & handle death */
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;

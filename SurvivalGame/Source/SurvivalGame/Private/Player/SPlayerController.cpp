@@ -88,6 +88,17 @@ bool ASPlayerController::ServerSuicide_Validate()
 	return true;
 }
 
+void ASPlayerController::Possess(class APawn* InPawn)
+{
+	Super::Possess(InPawn);
+
+	ASBaseCharacter* BaseCharacter = Cast<ASBaseCharacter>(InPawn);
+	if (BaseCharacter)
+	{
+		BaseCharacter->SetForceID(GetForceID());
+	}
+}
+
 
 void ASPlayerController::ClientHUDStateChanged_Implementation(EHUDState NewState)
 {
@@ -131,6 +142,23 @@ FText ASPlayerController::GetText(EHUDMessage MsgID)
 		UE_LOG(LogGame, Warning, TEXT("No Message set for enum value in SPlayerContoller::GetText(). "))
 		return FText::FromString("No Message Set");
 	}
+}
+
+int32 ASPlayerController::GetForceID() const
+{
+	return ForceID;
+}
+
+int32 ASPlayerController::SetForceID(int32 inForceID)
+{
+	return (ForceID = inForceID);
+}
+
+void ASPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ASPlayerController, ForceID);
 }
 
 /* Remove the namespace definition so it doesn't exist in other files compiled after this one. */

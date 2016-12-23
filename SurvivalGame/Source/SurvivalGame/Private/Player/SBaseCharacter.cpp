@@ -4,7 +4,6 @@
 #include "SBaseCharacter.h"
 #include "SGameMode.h"
 
-
 ASBaseCharacter::ASBaseCharacter(const class FObjectInitializer& ObjectInitializer)
 	/* Override the movement class from the base class to our own to support multiple speeds (eg. sprinting) */
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<USCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
@@ -28,6 +27,15 @@ float ASBaseCharacter::GetHealth() const
 	return Health;
 }
 
+int32 ASBaseCharacter::GetForceID() const
+{
+	return ForceID;
+}
+
+int32 ASBaseCharacter::SetForceID(int32 inForceID)
+{
+	return (ForceID = inForceID);
+}
 
 float ASBaseCharacter::GetMaxHealth() const
 {
@@ -42,6 +50,16 @@ bool ASBaseCharacter::IsAlive() const
 }
 
 
+float ASBaseCharacter::BPF_TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser)
+{
+	return TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
+}
+
+
+void ASBaseCharacter::BPF_DirectDie(struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser)
+{
+	Die(Health, DamageEvent, EventInstigator, DamageCauser);
+}
 
 float ASBaseCharacter::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser)
 {
@@ -390,5 +408,6 @@ void ASBaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 
 	// Replicate to every client, no special condition required
 	DOREPLIFETIME(ASBaseCharacter, Health);
+	DOREPLIFETIME(ASBaseCharacter, ForceID);
 	DOREPLIFETIME(ASBaseCharacter, LastTakeHitInfo);
 }

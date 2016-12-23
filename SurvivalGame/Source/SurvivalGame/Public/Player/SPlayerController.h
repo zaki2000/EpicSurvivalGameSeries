@@ -47,6 +47,8 @@ class SURVIVALGAME_API ASPlayerController : public APlayerController
 
 	bool ServerSuicide_Validate();
 
+	virtual void Possess(class APawn* InPawn) override;
+
 public:
 
 	UFUNCTION(Reliable, Client)
@@ -68,4 +70,13 @@ public:
 
 	/* Start spectating. Should be called only on server */
 	void StartSpectating();
+
+	UFUNCTION(BlueprintCallable, Category = "PlayerCondition")
+	int32 GetForceID() const;
+
+	UFUNCTION(BlueprintCallable, Category = "PlayerCondition")
+	int32 SetForceID(int32 inForceID);
+
+	UPROPERTY(EditDefaultsOnly, Category = "PlayerCondition", Replicated)
+	int32 ForceID = 0;
 };

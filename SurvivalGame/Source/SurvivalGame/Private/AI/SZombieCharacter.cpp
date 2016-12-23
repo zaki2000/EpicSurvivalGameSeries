@@ -199,6 +199,28 @@ void ASZombieCharacter::PerformMeleeStrike(AActor* HitActor)
 
 				SimulateMeleeStrike();
 			}
+			else {
+				ASBaseCharacter * OtherBaseCharacter = Cast<ASBaseCharacter>(HitActor);
+				if (OtherBaseCharacter)
+				{
+					if (GetForceID() == OtherBaseCharacter->GetForceID())
+					{
+						/* Do not attack other zombies. */
+						return;
+					}
+
+					/* Set to prevent a zombie to attack multiple times in a very short time */
+					LastMeleeAttackTime = GetWorld()->GetTimeSeconds();
+
+					FPointDamageEvent DmgEvent;
+					DmgEvent.DamageTypeClass = PunchDamageType;
+					DmgEvent.Damage = MeleeDamage;
+
+					HitActor->TakeDamage(DmgEvent.Damage, DmgEvent, GetController(), this);
+
+					SimulateMeleeStrike();
+				}
+			}
 		}
 	}
 }
