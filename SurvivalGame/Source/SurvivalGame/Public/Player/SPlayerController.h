@@ -77,6 +77,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "PlayerCondition")
 	int32 SetForceID(int32 inForceID);
 
-	UPROPERTY(EditDefaultsOnly, Category = "PlayerCondition", Replicated)
+	UPROPERTY(EditAnywhere,Replicated, Category = "PlayerCondition")
 	int32 ForceID = 0;
 };

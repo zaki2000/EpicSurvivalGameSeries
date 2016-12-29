@@ -56,9 +56,14 @@ float ASBaseCharacter::BPF_TakeDamage(float Damage, struct FDamageEvent const& D
 }
 
 
-void ASBaseCharacter::BPF_DirectDie(struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser)
+void ASBaseCharacter::BPF_DirectDie(TSubclassOf<class UDamageType> DamageType, struct FHitResult const& LaseHitInfo, class AController* EventInstigator, class AActor* DamageCauser)
 {
-	Die(Health, DamageEvent, EventInstigator, DamageCauser);
+	FPointDamageEvent PointDmg;
+	PointDmg.DamageTypeClass = DamageType;
+	PointDmg.HitInfo = LaseHitInfo;
+	PointDmg.ShotDirection = LaseHitInfo.ImpactPoint;
+	PointDmg.Damage = Health;
+	Die(Health, PointDmg, EventInstigator, DamageCauser);
 }
 
 float ASBaseCharacter::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser)
@@ -76,6 +81,8 @@ float ASBaseCharacter::TakeDamage(float Damage, struct FDamageEvent const& Damag
 	if (ActualDamage > 0.f)
 	{
 		Health -= ActualDamage;
+		OnEvent_TakeDamage(ActualDamage);
+
 		if (Health <= 0)
 		{
 			bool bCanDie = true;
@@ -164,6 +171,7 @@ void ASBaseCharacter::OnDeath(float KillingDamage, FDamageEvent const& DamageEve
 	bIsDying = true;
 
 	PlayHit(KillingDamage, DamageEvent, PawnInstigator, DamageCauser, true);
+	OnEvent_Death();
 
 	DetachFromControllerPendingDestroy();
 

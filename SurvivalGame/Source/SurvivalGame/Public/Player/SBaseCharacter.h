@@ -106,14 +106,26 @@ public:
 	float BPF_TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser);
 
 	UFUNCTION(BlueprintCallable, Category = "PlayerCondition")
-	void BPF_DirectDie(struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser);
+	void BPF_DirectDie(TSubclassOf<class UDamageType> DamageType, struct FHitResult const& LaseHitInfo, class AController* EventInstigator, class AActor* DamageCauser);
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "PlayerCondition")
+	void OnEvent_AllShieldsBroken();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "PlayerCondition")
+	void OnCommond_UseCurrentSkill();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "PlayerCondition")
+	void OnEvent_TakeDamage(int32 Damage);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "PlayerCondition")
+	void OnEvent_Death();
 
 protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "PlayerCondition", Replicated)
 	float Health;
 
-	UPROPERTY(EditDefaultsOnly, Category = "PlayerCondition", Replicated)
+	UPROPERTY(EditAnywhere, Category = "PlayerCondition", Replicated)
 	int32 ForceID = 0;
 
 	/* Take damage & handle death */
