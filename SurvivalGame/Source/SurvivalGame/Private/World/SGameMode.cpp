@@ -189,7 +189,7 @@ float ASGameMode::ModifyDamage(float Damage, AActor* DamagedActor, struct FDamag
 		// Check for friendly fire
 		if (!CanDealDamage(InstigatorPlayerState, DamagedPlayerState))
 		{
-			APawn * ControlledPawn = EventInstigator->GetControlledPawn();
+			APawn * ControlledPawn = EventInstigator->GetPawn();
 			if(ControlledPawn)
 			{
 				ASBaseCharacter* BaseCharacter = Cast<ASBaseCharacter>(ControlledPawn);

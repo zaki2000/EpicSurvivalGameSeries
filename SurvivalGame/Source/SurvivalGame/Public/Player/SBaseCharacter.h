@@ -112,7 +112,7 @@ public:
 	void OnEvent_AllShieldsBroken();
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "PlayerCondition")
-	void OnCommond_UseCurrentSkill();
+	void OnCommond_UseCurrentSkill(struct FVector const& TargetLocation);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "PlayerCondition")
 	void OnEvent_TakeDamage(int32 Damage);

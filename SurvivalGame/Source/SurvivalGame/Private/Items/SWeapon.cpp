@@ -702,7 +702,6 @@ int32 ASWeapon::GetMaxAmmo() const
 	return MaxAmmo;
 }
 
-
 void ASWeapon::StartReload(bool bFromReplication)
 {
 	/* Push the request to server */
