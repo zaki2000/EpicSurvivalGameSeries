@@ -13,8 +13,3 @@ SurvivalGame/Releases
 *.log
 *.target.xml
 SurvivalGame/WindowsNoEditor/
-SurvivalGame/DerivedDataCache/Boot.ddc
-SurvivalGame/Binaries/Win64/SurvivalGameEditor.target
-SurvivalGame/Binaries/Win64/UE4Editor.modules
-SurvivalGame/Content/LCH.rar
-SurvivalGame/SurvivalGame.uproject
