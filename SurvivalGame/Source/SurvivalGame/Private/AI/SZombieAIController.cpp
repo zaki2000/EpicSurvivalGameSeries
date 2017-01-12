@@ -103,3 +103,14 @@ void ASZombieAIController::SetBlackboardBotType(EBotBehaviorType NewType)
 		BlackboardComp->SetValueAsEnum(BotTypeKeyName, (uint8)NewType);
 	}
 }
+
+bool ASZombieAIController::ActiveAI(bool active)
+{
+	ActiveControl = active;
+	return ActiveControl;
+}
+
+bool ASZombieAIController::IsActive() const
+{
+	return ActiveControl;
+}

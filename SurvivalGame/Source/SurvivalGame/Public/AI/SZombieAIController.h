@@ -38,6 +38,9 @@ class SURVIVALGAME_API ASZombieAIController : public AAIController
 	UPROPERTY(EditDefaultsOnly, Category = "AI")
 	FName BotTypeKeyName;
 
+	UPROPERTY(EditDefaultsOnly, Category = "AI")
+	bool ActiveControl;
+
 public:
 
 	ASBotWaypoint* GetWaypoint();
@@ -54,4 +57,10 @@ public:
 	FORCEINLINE UBehaviorTreeComponent* GetBehaviorComp() const { return BehaviorComp; }
 
 	FORCEINLINE UBlackboardComponent* GetBlackboardComp() const { return BlackboardComp; }
+
+	UFUNCTION(BlueprintCallable, Category = "AI")
+	bool ActiveAI(bool active);
+
+	UFUNCTION(BlueprintCallable, Category = "AI")
+	bool IsActive() const;
 };
