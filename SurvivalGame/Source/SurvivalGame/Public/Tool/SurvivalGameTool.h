@@ -10,5 +10,5 @@ class SURVIVALGAME_API USurvivalGameTool : public UBlueprintFunctionLibrary
 
 public:
     UFUNCTION(BlueprintCallable, Category = "SurvivalGameTool", meta = (WorldContext = "WorldContextObject"))
-    static void ClientTravelByCommandLine(UObject* WorldContextObject);
+    static void ClientTravelByCommandLine(UObject* WorldContextObject, const FString& CommandParam, const FString& DefaultURL);
 };

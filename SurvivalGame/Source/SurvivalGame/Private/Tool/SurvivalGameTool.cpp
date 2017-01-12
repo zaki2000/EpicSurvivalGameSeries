@@ -1,10 +1,15 @@
 #include "SurvivalGame.h"
 #include "SurvivalGameTool.h"
 
-void USurvivalGameTool::ClientTravelByCommandLine(UObject* WorldContextObject)
+void USurvivalGameTool::ClientTravelByCommandLine(UObject* WorldContextObject, const FString& CommandParam, const FString& DefaultURL)
 {
-    FString URL("127.0.0.1:7777");
-    if (WorldContextObject && FParse::Value(FCommandLine::Get(), TEXT("serverip="), URL))
+	FString URL;
+	if (!FParse::Value(FCommandLine::Get(), *CommandParam, URL))
+	{
+		URL = DefaultURL;
+	}
+
+    if (WorldContextObject && URL.Len() > 0)
     {
         UWorld* World = WorldContextObject->GetWorld();
         if (World)
