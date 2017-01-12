@@ -30,6 +30,8 @@ ASFlashlight::ASFlashlight(const FObjectInitializer& ObjectInitializer)
 
 	/* Doesn't consume "Ammo" */
 	StartAmmo = 0;
+
+	bEnableTargeting = false;
 }
 
 

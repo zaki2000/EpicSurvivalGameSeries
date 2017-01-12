@@ -106,6 +106,15 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 	TSubclassOf<class ASWeaponPickup> WeaponPickupClass;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	bool bEnableTargeting = false;
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	bool EnableTargeting() const
+	{
+		return bEnableTargeting;
+	}
+
 	/************************************************************************/
 	/* Fire & Damage Handling                                               */
 	/************************************************************************/

@@ -259,13 +259,19 @@ void ASCharacter::OnStartTargeting()
 		CarriedObjectComp->Drop();
 	}
 
-	SetTargeting(true);
+	if(GetCurrentWeapon() && GetCurrentWeapon()->EnableTargeting())
+	{
+		SetTargeting(true);
+	}
 }
 
 
 void ASCharacter::OnEndTargeting()
 {
-	SetTargeting(false);
+	if (bIsTargeting)
+	{
+		SetTargeting(false);
+	}
 }
 
 

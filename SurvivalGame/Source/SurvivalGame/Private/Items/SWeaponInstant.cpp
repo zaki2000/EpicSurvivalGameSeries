@@ -17,6 +17,7 @@ ASWeaponInstant::ASWeaponInstant(const class FObjectInitializer& PCIP)
 	ClientSideHitLeeway = 200.0f;
 	MinimumProjectileSpawnDistance = 800;
 	TracerRoundInterval = 3;
+	bEnableTargeting = true;
 }
 
 
