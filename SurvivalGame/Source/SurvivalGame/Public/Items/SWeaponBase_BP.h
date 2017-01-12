@@ -41,5 +41,5 @@ public:
 	TSubclassOf<AActor> GetProjectileClass() const;
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Weapon")
-	void BP_Fire(struct FVector const& FromLocation, struct FRotator const& Rotator, float Range, struct FVector const& TargetLocation);
+	void BP_Fire(struct FVector const& FromLocation, struct FRotator const& Rotator, float Range, struct FVector const& TargetLocation, class APawn * Caster);
 };

@@ -39,7 +39,7 @@ class SURVIVALGAME_API ASZombieAIController : public AAIController
 	FName BotTypeKeyName;
 
 	UPROPERTY(EditDefaultsOnly, Category = "AI")
-	bool ActiveControl;
+	bool ActiveControl = true;
 
 public:
 

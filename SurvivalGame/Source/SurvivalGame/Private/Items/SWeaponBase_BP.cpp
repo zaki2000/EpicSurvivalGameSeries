@@ -11,7 +11,7 @@ void ASWeaponBase_BP::FireWeapon()
 	const FVector CameraPos = GetCameraDamageStartLocation(AimDir);
 	const FVector EndPos = CameraPos + (AimDir * ShootRange);
 	const FRotator rotator = UKismetMathLibrary::FindLookAtRotation(CameraPos, EndPos);
-	BP_Fire(CameraPos, rotator, ShootRange, EndPos);
+	BP_Fire(CameraPos, rotator, ShootRange, EndPos, Instigator);
 }
 
 float ASWeaponBase_BP::GetDamagePreHit() const
