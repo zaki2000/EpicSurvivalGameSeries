@@ -103,7 +103,7 @@ public:
 	/************************************************************************/
 public:
 	UFUNCTION(BlueprintCallable, Category = "PlayerCondition")
-	float BPF_TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser);
+	float BPF_TakeDamage(float Damage, TSubclassOf<class UDamageType> DamageType, struct FHitResult Impact, struct FVector ShootDir, class AController* EventInstigator, class AActor* DamageCauser);
 
 	UFUNCTION(BlueprintCallable, Category = "PlayerCondition")
 	void BPF_DirectDie(TSubclassOf<class UDamageType> DamageType, struct FHitResult const& LaseHitInfo, class AController* EventInstigator, class AActor* DamageCauser);

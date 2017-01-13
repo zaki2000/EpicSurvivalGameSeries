@@ -50,9 +50,14 @@ bool ASBaseCharacter::IsAlive() const
 }
 
 
-float ASBaseCharacter::BPF_TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser)
+float ASBaseCharacter::BPF_TakeDamage(float Damage, TSubclassOf<class UDamageType> DamageType, struct FHitResult Impact, struct FVector ShootDir, class AController* EventInstigator, class AActor* DamageCauser)
 {
-	return TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
+	FPointDamageEvent PointDmg;
+	PointDmg.DamageTypeClass = DamageType;
+	PointDmg.HitInfo = Impact;
+	PointDmg.ShotDirection = ShootDir;
+	PointDmg.Damage = Damage;
+	return TakeDamage(Damage, PointDmg, EventInstigator, DamageCauser);
 }
 
 
